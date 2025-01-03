@@ -1,5 +1,5 @@
 # stock-price-prediction-using-ML-django-backend
-
+note:using lstm algorithm to predict next day price
 Steps to run this project locally on your system:-
 
 1) Clone the repository
