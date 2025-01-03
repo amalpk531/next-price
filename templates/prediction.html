@@ -1,70 +1,209 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Prediction{% endblock title %}
+{% block title %}Stock Price Prediction{% endblock %}
 
 {% block body %}
+<script src="{% static 'smoothscroll.js' %}"></script>
 
-<section class="text-gray-600 body-font -my-9">
+<section class="feature min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-gray-900 to-black body-font">
     <div class="container px-5 py-24 mx-auto">
-      <div class="flex flex-col text-center w-full mb-12">
-        <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Insurance Premium Prediction</h1>
-        <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Whatever cardigan tote bag tumblr hexagon brooklyn asymmetrical gentrify, subway tile poke farm-to-table. Franzen you probably haven't heard of them man bun deep.</p>
-        <br><b>
-          {% if output %}
-          <h2 class = "text-success">Insurance Prediction : {{output}}</h2>
-          {% endif %}
-        </b>
-      </div>
-      
-      <form method ="post", action = "">
-        {% csrf_token %}
-        <div class="flex lg:w-2/3 w-full sm:flex-row flex-col mx-auto px-8 sm:space-x-4 sm:space-y-0 space-y-4 sm:px-0 items-end">
-            <div class="relative flex-grow w-full">
-              <label for="full-name" class="leading-7 text-sm text-gray-600">Enter the age</label>
-              <input type="text" id="age" name="age" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-            </div>
-            <div class="relative flex-grow w-full">
-              <label for="email" class="leading-7 text-sm text-gray-600">Enter the sex (male/female)</label>
-              <select id="sex" name="sex" class="form-select w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" aria-label="Default select example">
-                <option selected>Open this select menu</option>
-                <option value="1">Male</option>
-                <option value="0">Female</option>
-              </select>
+        <!-- Loading Screen -->
+        <div id="loadingScreen" style="display: none;">
+            <div class="spinner h-screen bg-gray-900 flex justify-center items-center"></div>
+            <div class="loader">
+                <div class="jimu-primary-loading"></div>
             </div>
         </div>
-        <div class="flex lg:w-2/3 w-full sm:flex-row flex-col mx-auto px-8 sm:space-x-4 sm:space-y-0 space-y-4 sm:px-0 items-end">
-            <div class="relative flex-grow w-full">
-              <label for="full-name" class="leading-7 text-sm text-gray-600">Enter BMI</label>
-              <input type="text" id="bmi" name="bmi" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-            </div>
-            <div class="relative flex-grow w-full">
-              <label for="email" class="leading-7 text-sm text-gray-600">Enter number of children</label>
-              <input type="text" id="children" name="children" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-            </div>
+        <!-- Header Section -->
+        <div class="text-center w-full mb-12">
+            <h1 class="text-4xl font-bold  "data-aos="fade-up" data-aos-delay="500">Stock Price Prediction</h1>
         </div>
-        <div class="flex lg:w-2/3 w-full sm:flex-row flex-col mx-auto px-8 sm:space-x-4 sm:space-y-0 space-y-4 sm:px-0 items-end">
-            <div class="relative flex-grow w-full">
-              <label for="full-name" class="leading-7 text-sm text-gray-600">Are you smoker ?</label>
-              <select id="smoker" name="smoker" class="form-select w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" aria-label="Default select example">
-                <option selected>Open this select menu</option>
-                <option value="1">Yes</option>
-                <option value="0">No</option>
-              </select>
+
+        <!-- Input Form for Stock Symbol -->
+        <section class="text-gray-600 body-font bg-gray-900 py-5 mt-2 rounded-lg shadow-lg">
+            <div class="container px-5 mx-auto">
+                <div class="flex flex-col text-center w-full mb-10">
+                    <form method="post" action="" id="dataForm" class="text-center">
+                    {% csrf_token %}
+                        <input
+                            type="text"
+                            name="stock_symbol"
+                            placeholder="Enter stock symbol... (e.g., AAPL)"
+                            class="text-center form-control mt-3 bg-gray-800 text-white border-gray-700"
+                            data-aos="fade-up" data-aos-delay="600"
+                            required
+                        >
+                        <button
+                            type="submit"
+                            data-aos="fade-up" data-aos-delay="600"
+                            class="btn btn-primary w-100 custom-btn bordered mt-3">
+                            Predict
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Error Message Display -->
+                {% if error %}
+                <div class="mt-6 text-red-500 text-center">
+                    {{ error }}
+                </div>
+                {% endif %}
             </div>
-            <div class="relative flex-grow w-full">
-              <label for="email" class="leading-7 text-sm text-gray-600">Select your region</label>
-              <select id="region" name="region" class="form-select w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" aria-label="Default select example">
-                <option selected>Open this select menu</option>
-                <option value="1">Southwest</option>
-                <option value="2">southeast</option>
-                <option value="3">northwest</option>
-                <option value="4">northeast</option>
-              </select>
+        </section>
+
+        <!-- Prediction Results Section -->
+        {% if predicted_open %}
+        <section class="mt-5 feature py-5 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="600">
+            <div class="container text-center" data-aos="fade-up">
+                <h2 class="h4 text-secondary mb-4">Predicted Stock Price for {{ symbol }} on {{ t_date }}</h2>
+
+                <div class="row justify-content-center mb-4">
+                    <div class="col-auto">
+                        <p class="px-3 py-2 bg-secondary text-light text-sm font-weight-medium">Open<br>
+                            <span class="h3 font-weight-bold text-info">{{ predicted_open }}</span>
+                        </p>
+                    </div>
+                    <div class="col-auto">
+                        <p class="px-3 py-2 bg-secondary text-light text-sm font-weight-medium">High<br>
+                            <span class="h3 font-weight-bold text-info">{{ predicted_high }}</span>
+                        </p>
+                    </div>
+                    <div class="col-auto">
+                        <p class="px-3 py-2 bg-secondary text-light text-sm font-weight-medium">Low<br>
+                            <span class="h3 font-weight-bold text-info">{{ predicted_low }}</span>
+                        </p>
+                    </div>
+                    <div class="col-auto">
+                        <p class="px-3 py-2 bg-secondary text-light text-sm font-weight-medium">Close<br>
+                            <span class="h3 font-weight-bold text-info">{{ predicted_close }}</span>
+                        </p>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="text-center my-4"><button type="submit" class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Button</button></div>
-      </form>
-    </div>
-  </section>
-{% endblock body %}
+        </section>
+
+        <section class="feature" id="feature">
+            <div class="container">
+              <div class="row">
+                  <div class="d-flex flex-column justify-content-center ml-lg-auto mr-lg-5 col-lg-5 col-md-6 col-12">
+                        <!-- Displaying Stock Prices Graph (PNG) -->
+                        <img src="data:image/png;base64,{{ graph }}" alt="Stock Prices Graph" data-aos="fade-up" data-aos-delay="600" class="w-100 img-fluid">
+                  </div>
+                  <div class="mr-lg-auto mt-3 col-lg-4 col-md-6 col-12">
+                       <div class="about-working-hours">
+                            <div>
+                                <h6 class="mb-4 text-white" data-aos="fade-up" data-aos-delay="600">DATE: {{ t_date }}</h6>
+                                <p class="mt-3" data-aos="fade-up" data-aos-delay="600">predicted open:{{ predicted_open }}</p>
+                                <p class="mt-3 d-block" data-aos="fade-up" data-aos-delay="600">predicted high:{{ predicted_high }}</p>
+                                <p class="mt-3 d-block" data-aos="fade-up" data-aos-delay="600">predicted low:{{ predicted_low }}</p>
+                                <p class="mt-3 d-block" data-aos="fade-up" data-aos-delay="600">predicted close:{{ predicted_close }}</p>
+                            </div>
+                        </div>
+                  </div>
+              </div>
+            </div>
+        </section>
+        
+        <!-- Chart Container for TradingView -->
+        <section class="mt-5 feature py-5 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="600">
+            <h2 class="h4 text-secondary mb-4 text-center">Combined graph with historical data and prediction of {{ symbol }} stock on {{ t_date }}</h2>        
+            <div class="chart-container w-full h-[500px] md:h-[600px] mt-6">
+                <div id="tvchart" class="w-full h-full rounded-none overflow-hidden"></div>
+            </div>
+        </section>
+        <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+        <script>
+            const getData = async () => {
+                try {
+                    const res = await fetch("{% static 'data.csv' %}");
+                    const resp = await res.text();
+
+                    const cdata = resp.split('\n')
+                        .slice(4)
+                        .filter(row => row.trim())
+                        .map((row) => {
+                            const [date, close, high, low, open] = row.split(',');
+                            const timestamp = new Date(date).getTime();
+                            return {
+                                time: timestamp / 1000,
+                                open: parseFloat(open),
+                                high: parseFloat(high),
+                                low: parseFloat(low),
+                                close: parseFloat(close),
+                            };
+                        });
+
+                    return cdata;
+                } catch (error) {
+                    console.error('Error loading data:', error);
+                    return [];
+                }
+            };
+
+            const displayChart = async () => {
+                try {
+                    const chartProperties = {
+                        width: document.getElementById('tvchart').clientWidth,
+                        height: 600,
+                        timeScale: {
+                            timeVisible: true,
+                            secondsVisible: false,
+                        },
+                        rightPriceScale: {
+                            visible: true,
+                            borderColor: '#393c41',
+                        },
+                        layout: {
+                            background: { color: '#0d1117' },
+                            textColor: '#c9d1d9',
+                        },
+                        grid: {
+                            vertLines: { color: '#21262d' },
+                            horzLines: { color: '#21262d' },
+                        },
+                    };
+
+                    const domElement = document.getElementById('tvchart');
+                    const chart = LightweightCharts.createChart(domElement, chartProperties);
+
+                    const candlestickSeries = chart.addCandlestickSeries({
+                        upColor: '#26a69a',
+                        downColor: '#ef5350',
+                        wickUpColor: '#26a69a',
+                        wickDownColor: '#ef5350',
+                        borderVisible: false,
+                        priceFormat: {
+                            type: 'price',
+                            precision: 2,
+                            minMove: 0.01,
+                        },
+                    });
+
+                    const data = await getData();
+                    if (data.length > 0) {
+                        candlestickSeries.setData(data);
+                        chart.timeScale().fitContent();
+                    }
+
+                    window.addEventListener('resize', () => {
+                        chart.resize(domElement.clientWidth, 600);
+                    });
+                } catch (error) {
+                    console.error('Error displaying chart:', error);
+                }
+            };
+
+            document.addEventListener('DOMContentLoaded', displayChart);
+
+            //loading code
+            document.getElementById("dataForm").onsubmit = function() {
+                // Show the loading screen
+                document.getElementById("loadingScreen").style.display = "flex";
+
+                // Optionally, you can disable the submit button to prevent multiple submissions
+                document.getElementById("submitBtn").disabled = true;
+            };
+        </script>
+        {% endif %}
+{% endblock %}
