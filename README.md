@@ -11,18 +11,19 @@ Steps to run this project locally on your system:-
          pip install virtualenv
 
 4) Now setup the project virtual environment
+
       python -m venv my_env
 
       my_env/scripts/activate
          
-5) Inside the virtual environment install Django by a given command
+6) Inside the virtual environment install Django by a given command
 
          pip install django
          
          pip install -r requirements.txt
-6) Now start the project on localhost and run the command
+7) Now start the project on localhost and run the command
 
          Python manage.py runserver
    Copy the link which shows after running this command and port this on chrome
 
-7) good to go...
+8) good to go...
