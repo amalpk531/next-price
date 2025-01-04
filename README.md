@@ -1,29 +1,64 @@
-# stock-price-prediction-using-ML-django-backend
-note:using lstm algorithm to predict next day price
-Steps to run this project locally on your system:-
+# Stock Price Prediction Using Machine Learning (Django Backend)
 
-1) Clone the repository
+This project uses an LSTM (Long Short-Term Memory) algorithm to predict the next day's stock price. Below are the detailed steps to set up and run this project locally.
 
-2) Open the respective folder in Visual Studio Code
+## Steps to Set Up and Run the Project Locally
 
-3) Install a virtual environment by a given command
+### 1. Clone the Repository
 
-         pip install virtualenv
+Clone the project repository from the source using the following command:
+```bash
+git clone <repository-url>
+```
 
-4) Now setup the project virtual environment
+### 2. Open the Project in Visual Studio Code
 
-      python -m venv my_env
+Navigate to the project folder and open it in Visual Studio Code (or your preferred code editor).
 
-      my_env/scripts/activate
-         
-6) Inside the virtual environment install Django by a given command
+### 3. Install Virtual Environment
 
-         pip install django
-         
-         pip install -r requirements.txt
-7) Now start the project on localhost and run the command
+Install the virtual environment package if it's not already installed:
+```bash
+pip install virtualenv
+```
 
-         Python manage.py runserver
-   Copy the link which shows after running this command and port this on chrome
+### 4. Set Up the Virtual Environment
 
-8) good to go...
+Create and activate a virtual environment for the project:
+```bash
+python -m venv my_env
+
+# On Windows
+my_env\Scripts\activate
+
+# On macOS/Linux
+source my_env/bin/activate
+```
+
+### 5. Install Dependencies
+
+While inside the virtual environment, install the required dependencies:
+```bash
+pip install django
+pip install -r requirements.txt
+```
+
+### 6. Start the Development Server
+
+Run the Django development server:
+```bash
+python manage.py runserver
+```
+
+After running the command, a link will appear in the terminal (e.g., `http://127.0.0.1:8000/`). Copy and paste this link into your browser to access the application.
+
+### 7. You're Ready to Go!
+
+The project should now be running locally on your system. You can explore its features and functionality from your browser.
+
+---
+
+**Note:**
+- Ensure that Python (version 3.7 or higher) and pip are installed on your system.
+- Update the `requirements.txt` file if additional dependencies are required for the project.
+
