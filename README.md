@@ -39,7 +39,6 @@ source my_env/bin/activate
 
 While inside the virtual environment, install the required dependencies:
 ```bash
-pip install django
 pip install -r requirements.txt
 ```
 
