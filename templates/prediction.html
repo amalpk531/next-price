@@ -6,15 +6,11 @@
 {% block body %}
 <script src="{% static 'smoothscroll.js' %}"></script>
 
+
+
 <section class="feature min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-gray-900 to-black body-font">
     <div class="container px-5 py-24 mx-auto">
-        <!-- Loading Screen -->
-        <div id="loadingScreen" style="display: none;">
-            <div class="spinner h-screen bg-gray-900 flex justify-center items-center"></div>
-            <div class="loader">
-                <div class="jimu-primary-loading"></div>
-            </div>
-        </div>
+       
         <!-- Header Section -->
         <div class="text-center w-full mb-12">
             <h1 class="text-4xl font-bold  "data-aos="fade-up" data-aos-delay="500">Stock Price Prediction</h1>
@@ -30,7 +26,7 @@
                             type="text"
                             name="stock_symbol"
                             placeholder="Enter stock symbol... (e.g., AAPL)"
-                            class="text-center form-control mt-3 bg-gray-800 text-white border-gray-700"
+                            class="text-center form-control mt-3 bg-gray-800 border-gray-700"
                             data-aos="fade-up" data-aos-delay="600"
                             required
                         >
@@ -98,6 +94,8 @@
                                 <p class="mt-3 d-block" data-aos="fade-up" data-aos-delay="600">predicted high:{{ predicted_high }}</p>
                                 <p class="mt-3 d-block" data-aos="fade-up" data-aos-delay="600">predicted low:{{ predicted_low }}</p>
                                 <p class="mt-3 d-block" data-aos="fade-up" data-aos-delay="600">predicted close:{{ predicted_close }}</p>
+                                <p class="mt-3 d-block" data-aos="fade-up" data-aos-delay="600">sentiment score:{{ sentiment_score}}</p>
+                                <p class="mt-3 d-block" data-aos="fade-up" data-aos-delay="600">sentiment score:{{ sentiment}}</p>
                             </div>
                         </div>
                   </div>
@@ -195,15 +193,8 @@
             };
 
             document.addEventListener('DOMContentLoaded', displayChart);
+            </script>
+            {% endif %}
 
-            //loading code
-            document.getElementById("dataForm").onsubmit = function() {
-                // Show the loading screen
-                document.getElementById("loadingScreen").style.display = "flex";
-
-                // Optionally, you can disable the submit button to prevent multiple submissions
-                document.getElementById("submitBtn").disabled = true;
-            };
-        </script>
-        {% endif %}
+       
 {% endblock %}

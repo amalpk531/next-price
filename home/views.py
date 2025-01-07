@@ -22,6 +22,60 @@ from django.core.mail import send_mail
 from django.core import mail
 from django.core.mail.message import EmailMessage
 #-add-b-my-------------- 
+#----sentiment analysis----------------#
+from textblob import TextBlob
+import feedparser
+from django.http import JsonResponse
+
+def fetch_and_analyze_sentiment(ticker):
+    try:
+        # Fetch news from Yahoo Finance RSS feed
+        rss_url = f"https://finance.yahoo.com/rss/headline?s={ticker}"
+        feed = feedparser.parse(rss_url)
+        
+        total_score = 0
+        num_articles = 0
+        
+        # Analyze first 5 articles
+        for entry in feed.entries[:5]:
+            # Combine title and summary for analysis
+            text = f"{entry.title} {entry.summary}"
+            analysis = TextBlob(text)
+            total_score += analysis.sentiment.polarity
+            num_articles += 1
+        
+        if num_articles == 0:
+            return {
+                "status": "warning",
+                "message": "No articles found",
+                "sentiment": "Neutral"
+            }
+        
+        # Calculate average sentiment
+        avg_score = total_score / num_articles
+        
+        # Determine sentiment
+        if avg_score > 0.1:
+            sentiment = "Positive"
+        elif avg_score < -0.1:
+            sentiment = "Negative"
+        else:
+            sentiment = "Neutral"
+            
+        return {
+            "status": "success",
+            "sentiment": sentiment,
+            "score": round(avg_score, 2)
+        }
+        
+    except Exception as e:
+        return {
+            "status": "error",
+            "message": str(e)
+        }
+
+#endsentiment analysis----------------#
+
 
 # Load the model
 model_path = os.path.join('static', 'latest_oneday.h5')
@@ -156,8 +210,11 @@ def prepare_model_input(data, time_steps=60):
 def prediction(request):
     if request.method == "POST":
         stock_symbol = request.POST.get('stock_symbol')
+        
 
         try:
+            #sentiment analysis
+            sentiment_result = fetch_and_analyze_sentiment(stock_symbol)
             # Fetch data for the stock symbol
             data = fetch_data(stock_symbol)
             
@@ -222,7 +279,8 @@ def prediction(request):
                 predicted_open
             )
 
-            #----------------------------------------------#
+
+                
             # Add labels, legend, and title
             plt.title(f'{stock_symbol} Stock Price Prediction (Next Day: {tomorrow_str})')
             plt.xlabel('Date')
@@ -237,7 +295,7 @@ def prediction(request):
             graph_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
             plt.close()
             buffer.close()
-
+        
             # Prepare context with predicted values and plot
             context = {
                 "predicted_open": predicted_open,
@@ -246,7 +304,9 @@ def prediction(request):
                 "predicted_close": predicted_close,
                 "graph": graph_base64,
                 "symbol": stock_symbol,
-                "t_date": tomorrow_str
+                "t_date": tomorrow_str,
+                "sentiment": sentiment_result["sentiment"],
+                "sentiment_score": sentiment_result.get("score", 0)
             }
 
             return render(request, 'prediction.html', context)
