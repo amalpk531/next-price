@@ -13,17 +13,15 @@ git clone <repository-url>
 
 ### 2. Open the Project in Visual Studio Code
 
-<<<<<<< HEAD
+
 4) Now setup the project virtual environment
 
       python -m venv my_env
 =======
-Navigate to the project folder and open it in Visual Studio Code (or your preferred code editor).
->>>>>>> c6996799b65fb1cabdc821e71ec7a5a2f0b9e9e9
 
 ### 3. Install Virtual Environment
 
-<<<<<<< HEAD
+
          pip install django
          
          pip install -r requirements.txt
@@ -77,5 +75,4 @@ The project should now be running locally on your system. You can explore its fe
 **Note:**
 - Ensure that Python (version 3.7 or higher) and pip are installed on your system.
 - Update the `requirements.txt` file if additional dependencies are required for the project.
->>>>>>> c6996799b65fb1cabdc821e71ec7a5a2f0b9e9e9
 
