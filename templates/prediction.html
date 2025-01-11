@@ -22,14 +22,16 @@
                 <div class="flex flex-col text-center w-full mb-10">
                     <form method="post" action="" id="dataForm" class="text-center">
                     {% csrf_token %}
-                        <input
-                            type="text"
-                            name="stock_symbol"
-                            placeholder="Enter stock symbol... (e.g., AAPL)"
-                            class="text-center form-control mt-3 bg-gray-800 border-gray-700"
-                            data-aos="fade-up" data-aos-delay="600"
-                            required
-                        >
+                    <input
+                    type="text"
+                    name="stock_symbol"
+                    placeholder="Enter stock symbol... (e.g., AAPL)"
+                    class="text-center form-control mt-3"
+                    style="background-color:rgb(42, 43, 43); color: white; border: 1px solid #555;" 
+                    data-aos="fade-up" data-aos-delay="600"
+                    required
+                >
+                
                         <button
                             type="submit"
                             data-aos="fade-up" data-aos-delay="600"
