@@ -1,7 +1,6 @@
 {% load static %}
 <!doctype html>
 <html lang="en">
-  
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,11 +40,11 @@
     {% comment %} {% block special_content %}
     <script src="https://cdn.tailwindcss.com"></script> 
     {% endblock %} {% endcomment %}
-
     <!--Background img-->
     {% load static %}
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <link rel="stylesheet" href="{% static 'smoothscroll.js' %}">
+
   
   </head>
 
@@ -67,7 +66,6 @@
 <!-- MENU BAR -->
 <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container">
-
         <a class="navbar-brand" href="{% url 'home' %}">Next Price</a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
@@ -80,30 +78,27 @@
                 <li class="nav-item">
                     <a href="{% url 'home' %}" class="nav-link smoothScroll">Home</a>
                 </li>
-
                 <li class="nav-item">
                     <a href="{% url 'about' %}" class="nav-link smoothScroll">About Us</a>
                 </li>
-
                 <li class="nav-item">
                     <a href="{% url 'contact' %}" class="nav-link smoothScroll">Contact</a>
                 </li>
-                <!-- Right Login/Signup or User Dropdown -->
-                  {% if not request.user.is_authenticated %}
-                  <li class="nav-item">
-                    <a href="/login" class="nav-link smoothScroll">log in</a>
-                </li>
-                  <li class="nav-item">
-                    <a href="/signup" class="nav-link smoothScroll">sign up</a>
-                 </li>
-                  {% else %}
-                  <li id="dropdownMenu" class="nav-item">
-                    <a class="nav-link smoothScroll" href="/logout">Logout</a></li>
-                  </ll>
-                  <li class="nav-item" id="dropdownButton">
-                    <a href="/signup" class="nav-link smoothScroll">
-                      Welcome &nbsp;<strong>{{ request.user.username }}</strong>
-                    </a>
+                {% if not request.user.is_authenticated %}
+                    <li class="nav-item">
+                        <a href="/login" class="nav-link smoothScroll">Log in</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/signup" class="nav-link smoothScroll">Sign up</a>
+                    </li>
+                {% else %}
+                    <li id="dropdownMenu" class="nav-item">
+                        <a class="nav-link smoothScroll" href="/logout">Logout</a>
+                    </li>
+                    <li class="nav-item" id="dropdownButton">
+                        <a href="/signup" class="nav-link smoothScroll">
+                            Welcome &nbsp;<strong>{{ request.user.username }}</strong>
+                        </a>
                     
                   </li>
                   <script>
@@ -140,7 +135,7 @@
             <div class="ml-auto col-lg-4 col-md-5">
                 <p class="copyright-text">Copyright &copy; team 2025.
                 
-                <br>Design: <a href="https://github.com/amalpk531">amal sravan sidharth</a></p>
+                <br>Design: <a href="https://github.com/amalpk531">@sidarth @sravan @amal</a></p>
             </div>
 
             <div class="d-flex justify-content-center mx-auto col-lg-5 col-md-7 col-12">
@@ -155,5 +150,8 @@
        </div>
   </div>
 </footer>
+<!-- Add Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
