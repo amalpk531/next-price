@@ -670,3 +670,68 @@ button#submit-button:hover {
     display: block;
   }
 }
+
+    /* Custom styles for the chart section */
+    .tradingview-widget-container {
+        position: relative;
+        width: 100%;
+        height: 70vh;
+        min-height: 500px;
+    }
+
+    #tradingview-widget {
+        background-color: #1e222d;
+    }
+
+    .custom-btn {
+        padding: 8px 24px;
+        transition: all 0.3s ease;
+    }
+
+    /* Dark theme input styling */
+    #symbol-input {
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    #symbol-input:focus {
+        box-shadow: none;
+        border-color: var(--primary);
+    }
+
+    @media (max-width: 768px) {
+        .tradingview-widget-container {
+            height: 60vh;
+            min-height: 400px;
+        }
+    }
+/* widget cards */
+.card {
+  transition: transform 0.2s ease-in-out;
+  border: none;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card-header {
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.card-title {
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.tradingview-widget-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .col-md-6 {
+      padding: 0 15px;
+  }
+}
+/* dashboard_css */

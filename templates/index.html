@@ -22,7 +22,7 @@
 
                           <h1 class="text-white" data-aos="fade-up" data-aos-delay="500">stock price prediction</h1>
 
-                          <a href="#feature" class="btn custom-btn mt-3" data-aos="fade-up" data-aos-delay="600">Get started</a>
+                          <a href="{% url 'dashboard' %}"  class="btn custom-btn mt-3" data-aos="fade-up" data-aos-delay="600">Dashboard</a>
 
                           <a href="{% url 'prediction' %}"  class="btn custom-btn bordered mt-3" data-aos="fade-up" data-aos-delay="700">predictions</a>
                          
@@ -44,8 +44,7 @@
           <h6 class="mb-4 text-white" data-aos="fade-up">Your membership is up to 2 months FREE 62.50 per month</h6>
 
           <p data-aos="fade-up" data-aos-delay="200">Gymso is free HTML template by <a rel="nofollow" href="" target="_parent">Tooplate</a> for your commercial website. Bootstrap v4.2.1 Layout. Feel free to use it.</p>
-
-          <a href="#" class="btn custom-btn bg-color mt-3" data-aos="fade-up" data-aos-delay="300" data-toggle="modal" data-target="#membershipForm">Dashboard</a>
+          <a href="{% url 'dashboard' %}"  class="btn custom-btn bg-color mt-3" data-aos="fade-up" data-aos-delay="300" >Dashboard</a>
       </div>
 
       <div class="mr-lg-auto mt-3 col-lg-4 col-md-6 col-12">
@@ -75,28 +74,104 @@
 
 <!-- ABOUT -->
 <section class="about section" id="about">
-     <div class="container">
-          <div class="row">
-              <div class="ml-lg-auto col-lg-3 col-md-6 col-12" data-aos="fade-up" data-aos-delay="700">
-                  <!-- img -->
-                   <h2>welcome</h2>
-                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse laborum enim nam sint </p>
-              </div>
-              <div class="ml-lg-auto col-lg-3 col-md-6 col-12" data-aos="fade-up" data-aos-delay="700">
-                  <!-- img -->
-                   <h2>welcome</h2>
-                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse laborum enim nam sint </p>
-              </div>
-              <div class="ml-lg-auto col-lg-3 col-md-6 col-12" data-aos="fade-up" data-aos-delay="700">
-                  <!-- img -->
-                   <h2>welcome</h2>
-                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse laborum enim nam sint </p>
-              </div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <!-- NVIDIA Widget -->
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="700">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-header bg-light">
+                        <h4 class="card-title mb-0">NVIDIA Stock Overview</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="tradingview-widget-container">
+                            <div class="tradingview-widget-container__widget"></div>
+                            <div class="tradingview-widget-copyright">
+                                <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">
+                                </a>
+                            </div>
+                            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+                            {
+                                "symbol": "NASDAQ:NVDA",
+                                "width": "100%",
+                                "height": 220,
+                                "locale": "en",
+                                "dateRange": "1D",
+                                "colorTheme": "light",
+                                "isTransparent": false,
+                                "autosize": true,
+                                "largeChartUrl": ""
+                            }
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                  
+            <!-- Google Widget -->
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="700">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-header bg-light">
+                        <h4 class="card-title mb-0">Google Stock Overview</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="tradingview-widget-container">
+                            <div class="tradingview-widget-container__widget"></div>
+                            <div class="tradingview-widget-copyright">
+                                <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">
+                                </a>
+                            </div>
+                            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+                            {
+                                "symbol": "NASDAQ:GOOG",
+                                "width": "100%",
+                                "height": 220,
+                                "locale": "en",
+                                "dateRange": "1D",
+                                "colorTheme": "light",
+                                "isTransparent": false,
+                                "autosize": true,
+                                "largeChartUrl": ""
+                            }
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-          </div>
-     </div>
+            <!-- Microsoft Widget -->
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="700">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-header bg-light">
+                        <h4 class="card-title mb-0">Microsoft Stock Overview</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="tradingview-widget-container">
+                            <div class="tradingview-widget-container__widget"></div>
+                            <div class="tradingview-widget-copyright">
+                                <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">
+                                    
+                                </a>
+                            </div>
+                            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+                            {
+                                "symbol": "NASDAQ:MSFT",
+                                "width": "100%",
+                                "height": 220,
+                                "locale": "en",
+                                "dateRange": "1D",
+                                "colorTheme": "light",
+                                "isTransparent": false,
+                                "autosize": true,
+                                "largeChartUrl": "",
+                                "chartOnly": false
+                            }
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
 
@@ -166,18 +241,22 @@
 
 <!-- CONTACT -->
 <section class="contact section" id="contact">
-<div class="container">
+
+
+    <div class="container">
      <div class="row">
 
           <div class="ml-auto col-lg-5 col-md-6 col-12">
-              <h2 class="mb-4 pb-2" data-aos="fade-up" data-aos-delay="200">Feel free to ask anything</h2>
+            <a href="#"  data-aos="fade-up" data-aos-delay="300" data-toggle="modal" data-target="#membershipForm"><h2 class="mb-4 pb-2" data-aos="fade-up" data-aos-delay="200">Feel free to ask anything</h2></a>
+              
                      
-              <form action="#" method="post" class="contact-form webform" data-aos="fade-up" data-aos-delay="400" role="form">
-                  <input type="text" class="form-control" name="cf-name" placeholder="Name">
+              <form action="/contact/" method="post" class="contact-form webform" data-aos="fade-up" data-aos-delay="400" role="form">
+                {% csrf_token %}
+                  <input type="text" class="form-control" name="name"id="name" placeholder="Name">
 
-                  <input type="email" class="form-control" name="cf-email" placeholder="Email">
+                  <input type="email" class="form-control" name="email"id="email" placeholder="Email">
 
-                  <textarea class="form-control" rows="5" name="cf-message" placeholder="Message"></textarea>
+                  <textarea class="form-control" rows="5" id="message" name="desc"  placeholder="Message"></textarea>
 
                   <button type="submit" class="form-control" id="submit-button" name="submit">Send Message</button>
               </form>
@@ -187,7 +266,8 @@
               <h2 class="mb-4" data-aos="fade-up" data-aos-delay="600">Where you can <span>find us</span></h2>
 
               <p data-aos="fade-up" data-aos-delay="800"><i class="fa fa-map-marker mr-1"></i> 120-240 Rio de Janeiro - State of Rio de Janeiro, Brazil</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum temporibus aliquam voluptatum autem laborum veniam, ullam, recusandae mollitia accusantium quia illo quo ad quae delectus praesentium possimus architecto repellendus? Tenetur!</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum temporibus aliquam voluptatum autem laborum veniam, ullam, recusandae mollitia accusantium quia illo quo ad quae delectus praesentium possimus architecto repellendus? Tenetur!</p>
+
 </section>
 
     <!-- Right Content -->
