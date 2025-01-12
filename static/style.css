@@ -366,7 +366,7 @@ a:focus {
 -----------------------------------------*/
 
 .hero {
-  background-image: url('hero-bg.jpg');
+  background-image: url('hero-home-bg.jpg');
   background-size: cover;
   background-position: top;
   background-repeat: no-repeat;

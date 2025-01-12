@@ -29,6 +29,9 @@ from django.core.mail.message import EmailMessage
 from textblob import TextBlob
 import feedparser
 from django.http import JsonResponse
+#---login check-----------#
+from django.contrib.auth.decorators import login_required
+
 
 def fetch_and_analyze_sentiment(ticker):
     try:
@@ -170,13 +173,16 @@ def handlesignup(request):
     
     return render(request,'signup.html')
 
+
+@login_required(login_url='/login')
 def dashboard(request):
     return render(request, 'dashboard.html')
+
 
 def handlelogout(request):
     logout(request)
     messages.info(request,"Logout Successful")
-    return redirect('/login')
+    return redirect('/')
 
 def fetch_data(stock_symbol):
     """Fetch historical stock data from Yahoo Finance with MA100."""
@@ -352,7 +358,7 @@ def create_enhanced_plot(data, predicted_next_day, stock_symbol, tomorrow_str, a
     buffer.close()
     
     return graph_base64, trend, distance_from_ma
-
+@login_required(login_url='/login')
 def prediction(request):
     # Add these date calculations at the start of the function
     today = datetime.today()
